@@ -38,11 +38,9 @@ impl Life {
         }
     }
     fn kill(&self, change: &mut Vec<Change>, row: RC, column: RC) {
-        //self.board[[row,column]] = 0;
         change.push(Change { row: row, column: column, state: 0, });
     }
     fn survive(&self, change: &mut Vec<Change>, row: RC, column: RC) {
-        //self.board[[row,column]] += 1;
         let newstate = self.board[[row,column]] + 1;
         change.push(Change { row: row, column: column, state: newstate, });
     }
