@@ -1,8 +1,10 @@
 extern crate multiarray;
+extern crate rand;
 
 use multiarray::Array2D;
 use std::usize::MAX;
 use std::vec::Vec;
+use rand::{thread_rng, Rng};
 
 type Cell = u8;
 type Board = Array2D<Cell>;
@@ -130,6 +132,14 @@ impl Life {
         // Apply changes
         for c in change {
             self.board[[c.row, c.column]] = c.state;
+        }
+    }
+    pub fn populate(&mut self) {
+        let mut rng = thread_rng();
+        for r in 0..self.rows {
+            for c in 0..self.cols {
+                self.board[[r, c]] = rng.gen_range(0, 1);
+            }
         }
     }
 }
