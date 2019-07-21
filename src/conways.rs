@@ -81,4 +81,39 @@ impl Life {
         }
     total
     }
+    pub fn next(&mut self) {
+        for r in 0..self.rows {
+            for c in 0..self.cols {
+                let n = self.neighbors(r, c);
+                if self.isAlive(r, c) {
+                    let mut survive = false;
+                    for s in &self.survive {
+                        if n == *s {
+                            survive = true;
+                            continue;
+                        }
+                    }
+                    if survive {
+                        self.survive(r, c);
+                    }
+                    else {
+                        self.kill(r, c);
+                    }
+                }
+                else {
+                    let mut live = false;
+                    for b in &self.birth {
+                        if n == *b {
+                            live = true;
+                            continue;
+                        }
+
+                    }
+                    if live {
+                        self.survive(r, c);
+                    }
+                }
+            }
+        }
+    }
 }
