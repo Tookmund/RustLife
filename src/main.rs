@@ -1,4 +1,5 @@
 use std::io::{self, Write};
+use std::{thread, time};
 mod conways;
 
 fn main() {
@@ -19,6 +20,7 @@ fn main() {
             io::stdout().flush().unwrap();
         }
         con.next();
-
+        thread::sleep(time::Duration::new(1,0));
+        println!("\n");
     }
 }
