@@ -74,7 +74,7 @@ impl Life {
                         continue;
                     }
                 }
-                if self.board[[r,c]] > 0 {
+                if self.isAlive(r, c) {
                     total += 1;
                 }
             }
