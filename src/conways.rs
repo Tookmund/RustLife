@@ -2,7 +2,6 @@ extern crate multiarray;
 
 use multiarray::Array2D;
 use std::usize::MAX;
-use std::num::Wrapping;
 
 type Board = Array2D<u8>;
 type RC = usize;
