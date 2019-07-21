@@ -46,7 +46,7 @@ impl Life {
         let newstate = self.board[[row,column]] + 1;
         change.push(Change { row: row, column: column, state: newstate, });
     }
-    fn isAlive(&self, row: RC, column: RC) -> bool {
+    pub fn is_alive(&self, row: RC, column: RC) -> bool {
         if self.board[[row,column]] > 0 {
             true
         }
@@ -87,7 +87,7 @@ impl Life {
                         continue;
                     }
                 }
-                if self.isAlive(r, c) {
+                if self.is_alive(r, c) {
                     total += 1;
                 }
             }
@@ -99,7 +99,7 @@ impl Life {
         for r in 0..self.rows {
             for c in 0..self.cols {
                 let n = self.neighbors(r, c);
-                if self.isAlive(r, c) {
+                if self.is_alive(r, c) {
                     let mut survive = false;
                     for s in &self.survive {
                         if n == *s {
