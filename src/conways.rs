@@ -5,7 +5,7 @@ use std::usize::MAX;
 
 type Board = Array2D<u8>;
 type RC = usize;
-type Rule = std::vec::Vec<u8>;
+type Rule = std::vec::Vec<RC>;
 
 pub struct Life {
     rows: RC,
