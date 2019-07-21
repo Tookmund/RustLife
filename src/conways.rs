@@ -85,6 +85,14 @@ impl Life {
                         continue;
                     }
                 }
+                if c > self.cols-1 {
+                    if self.wraparound {
+                        c = 0;
+                    }
+                    else {
+                        continue
+                    }
+                }
                 if self.is_alive(r, c) {
                     total += 1;
                 }
