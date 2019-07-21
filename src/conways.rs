@@ -56,7 +56,7 @@ impl Life {
     }
     fn neighbors(&self, row: RC, column: RC) -> RC {
         let mut total: RC = 0;
-        for lr in row.wrapping_sub(1)..row.wrapping_add(1) {
+        for lr in row.wrapping_sub(1)..row.wrapping_add(2) {
             let mut r = lr;
             if r == MAX {
                 if self.wraparound {
@@ -74,7 +74,7 @@ impl Life {
                     continue;
                 }
             }
-            for lc in column.wrapping_sub(1)..column.wrapping_add(1) {
+            for lc in column.wrapping_sub(1)..column.wrapping_add(2) {
                 let mut c = lc;
                 if r == row && c == column {
                     continue;
