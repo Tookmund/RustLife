@@ -2,10 +2,12 @@ extern crate multiarray;
 
 use multiarray::Array2D;
 use std::usize::MAX;
+use std::vec::Vec;
 
-type Board = Array2D<u8>;
+type Cell = u8;
+type Board = Array2D<Cell>;
 type RC = usize;
-type Rule = std::vec::Vec<RC>;
+type Rule = Vec<RC>;
 
 pub struct Life {
     rows: RC,
@@ -14,6 +16,12 @@ pub struct Life {
     wraparound: bool,
     birth: Rule,
     survive: Rule,
+}
+
+struct Change {
+    row: RC,
+    column: RC,
+    state: Cell,
 }
 
 impl Life {
@@ -27,11 +35,14 @@ impl Life {
             survive: vec![2, 3],
         }
     }
-    fn kill(&mut self, row: RC, column: RC) {
-        self.board[[row,column]] = 0;
+    fn kill(&self, change: &mut Vec<Change>, row: RC, column: RC) {
+        //self.board[[row,column]] = 0;
+        change.push(Change { row: row, column: column, state: 0, });
     }
-    fn survive(&mut self, row: RC, column: RC) {
-        self.board[[row,column]] += 1;
+    fn survive(&self, change: &mut Vec<Change>, row: RC, column: RC) {
+        //self.board[[row,column]] += 1;
+        let newstate = self.board[[row,column]] + 1;
+        change.push(Change { row: row, column: column, state: newstate, });
     }
     fn isAlive(&self, row: RC, column: RC) -> bool {
         if self.board[[row,column]] > 0 {
@@ -82,6 +93,7 @@ impl Life {
     total
     }
     pub fn next(&mut self) {
+        let mut change: Vec<Change> = Vec::new();
         for r in 0..self.rows {
             for c in 0..self.cols {
                 let n = self.neighbors(r, c);
@@ -94,10 +106,10 @@ impl Life {
                         }
                     }
                     if survive {
-                        self.survive(r, c);
+                        self.survive(&mut change, r, c);
                     }
                     else {
-                        self.kill(r, c);
+                        self.kill(&mut change, r, c);
                     }
                 }
                 else {
@@ -110,10 +122,14 @@ impl Life {
 
                     }
                     if live {
-                        self.survive(r, c);
+                        self.survive(&mut change, r, c);
                     }
                 }
             }
+        }
+        // Apply changes
+        for c in change {
+            self.board[[c.row, c.column]] = c.state;
         }
     }
 }
