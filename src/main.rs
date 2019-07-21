@@ -4,7 +4,7 @@ mod conways;
 
 fn main() {
     println!("Begin");
-    let mut con = conways::Life::new(10, 10);
+    let mut con = conways::Life::new(32, 80);
     con.populate();
     loop {
         for r in 0..con.rows {
