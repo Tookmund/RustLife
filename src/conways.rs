@@ -12,10 +12,10 @@ type RC = usize;
 type Rule = Vec<RC>;
 
 pub struct Life {
-    rows: RC,
-    cols: RC,
+    pub rows: RC,
+    pub cols: RC,
+    pub wraparound: bool,
     board: Board,
-    wraparound: bool,
     birth: Rule,
     survive: Rule,
 }
